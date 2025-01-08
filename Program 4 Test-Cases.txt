@@ -1,0 +1,28 @@
+
+Test-Cases:
+-4.75
+
+The sign is: -
+Expo with bias: 0x00000081
+Expo without bias: 0x00000002
+Mantissa: 0x00180000
+IEEE-754 Single Prec: 0xc0980000
+
+
+200.25
+
+The sign is: +
+Expo with bias: 0x00000086
+Expo without bias: 0x00000007
+Mantissa: 0x00484000
+IEEE-754 Single Prec: 0x43484000
+
+
+-96.024
+
+The sign is: -
+Expo with bias: 0x00000085
+Expo without bias: 0x00000006
+Mantissa: 0x00400c4a
+IEEE-754 Single Prec: 0xc2c00c4a
+-- program is finished running --

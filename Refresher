@@ -1,0 +1,116 @@
+#Name: Zach Cisney
+#Date: 3/30/2023
+#Description: refreshing on MIPS...
+
+
+
+#What it will do:
+#	greeting 
+#	prompt for integer
+#	
+#	add GUI pop up
+#	display greeting
+#	prompt
+#
+#
+#	graceful close
+#
+#	
+
+.globl main
+
+.data
+greeting: .asciiz "Welcome to the refresher program created by Zach C. while in class.\n\n"
+prop1: .asciiz "Give me a number:\n"
+result: .asciiz "Here is the result: "
+display: .asciiz "\nThis is the count: "
+
+
+gClose: .asciiz "\n\nGet lost punk!"
+
+
+
+
+
+.text
+main:
+	
+#	li $v0, 4
+#	la $a0, greeting
+#	syscall
+
+	#GUI Greeting
+	li $v0, 55 #dialog box
+	li $a1, 1 #type of message
+	la $a0, greeting
+	syscall
+
+#	li $v0, 4
+#	la $a0, prop1
+#	syscall
+
+	#GUI prompt for number
+	li $v0, 51 #input diablog int
+	la $a0, prop1
+	syscall
+	move $t0, $a0
+
+	######################
+	#deal with#
+	#the number#
+	######################	
+	
+#	li $v0, 5
+#	syscall
+#	move $t0, $v0
+
+
+#	li $v0, 4
+#	la $a0, result
+#	syscall
+	
+#	li $v0, 1
+#	move $a0, $t0
+#	syscall
+
+	li $v0, 56
+	la $a0, result
+	move $a1, $t0
+	syscall
+
+	
+loop:
+	beqz $t0, endLoop
+	
+	li $v0, 4
+	la $a0, display
+	syscall
+	
+			
+	li $v0, 1
+	move $a0, $t0
+	syscall
+	
+	
+	li $v0, 55 #dialog box
+	li $a1, 1 #type of message
+	la $a0, display
+	syscall
+	
+	
+	subi $t0, $t0, 1
+	
+	j loop
+		
+endLoop:
+
+
+exit:
+	li $v0, 4
+	la $a0, gClose
+	syscall
+	
+	li $v0, 10
+	syscall
+
+	

@@ -1,0 +1,59 @@
+
+.data
+extraSpace: .asciiz "	"
+extraReturn: .asciiz "\n"
+
+
+.text
+
+main:
+	li $s7, 3	
+	add $s7, $s7, 1
+	
+	jal multTable
+
+
+
+
+#	li $v0, 5 
+#	move $s7, $v0
+#	syscall
+	
+	
+multTable:	
+	li $t1, 1 #row
+	j row	
+	
+row:
+	beq $t1, $s7, exit #outer loop
+	li $t0, 1 #column
+	j column
+ 	
+column:	
+	beq $t0, $s7, out #inner loop
+	
+	mul  $s1, $t0, $t1 #actual value
+	
+	li $v0, 1
+	move $a0, $s1 
+	syscall #print
+	
+	addi, $t0, $t0, 1 #setting for next int
+	
+	li $v0, 4
+	la $a0, extraSpace 
+	syscall #formatting
+
+	j column
+
+out:	
+	li $v0, 4
+	la $a0, extraReturn
+	syscall #formatting
+	
+	addi, $t1, $t1, 1
+		
+	j row
+exit:
+	li $v0, 10
+	syscall

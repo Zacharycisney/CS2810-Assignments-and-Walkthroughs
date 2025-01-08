@@ -1,0 +1,13 @@
+.data
+ieee: .word 0 # store your input here
+again: .asciiz "Do you want to do it again?"
+prompt: .asciiz "Enter an IEEE 754 floating point number in decimal form: "
+res_sign: .asciiz "\nThe sign is: "
+new_line: .asciiz "\n"
+expoBias: .asciiz "\nExpo with bias: "
+expoNoBias: .asciiz "\nExpo without bias: "
+manti: .asciiz "\nMantissa: "
+sieee: .asciiz "\nIEEE-754 Single Prec: "
+
+.text
+

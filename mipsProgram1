@@ -1,0 +1,98 @@
+#Project 1 2810
+#by: Zach Cisney 
+#This is an introductory assignment. The purpose of this assignment is to practice the basics of the MIPS language.
+
+.data #create variables to store name, assignment number, program description
+name: .asciiz "Zach C. "
+assNum: .byte 1
+desc: .asciiz "This is an introductory assignment. The purpose of this assignment is to practice the basics of the MIPS language.\nThe creator of this program and program number is as follows: \n"
+prompt: .asciiz "\nPlease enter a number.(At the end of the program the numbers will be subtracted from each other)\n"
+diff: .asciiz "\nThe difference is: "
+lastOp: .asciiz "\n\nThe difference minus 20 is " #last operation prompt
+
+
+.text #I can display the message by loading each variable into a register and then call it but, I would rather only use one register and continually update it
+
+
+#part 1
+#description
+	li $v0 4
+	la $a0 desc
+	syscall
+
+#name
+	li $v0 4
+	la $a0 name
+	syscall 
+
+#assignment number
+	li $v0 1
+	lbu $a0 assNum
+	syscall
+
+
+#part 2
+#use t register 0-2 to store user input and the answer after the math is performed (store answer in $t2)
+	
+	#print newline char
+    		li $v0, 11 #setup syscall to print string
+    		li $a0, 10 #10 is ascii for \n
+    		syscall
+	
+#prompt for input
+	li $v0 4
+	la $a0 prompt
+	syscall
+	
+#Take input 1
+    li $v0, 5 #set up syscall to read in a int
+    syscall
+    #move input into temp register
+    move $t0, $v0 #destination, source
+
+#prompt for input for the second time
+	li $v0 4
+	la $a0 prompt
+	syscall
+
+#Take input 2
+    	li $v0, 5 #set up syscall to read in a int
+    	syscall
+    	#move input into temp register
+    	move $t1, $v0 #destination, source
+    
+#Doing the math
+	sub $t2, $t0, $t1 #C = A - B   
+
+#subtraction prompt
+	li $v0 4
+	la $a0 diff
+	syscall
+
+#display answer
+	li $v0 1
+	move $a0 $t2
+	syscall    
+
+#Part 3
+#minus 20 prompt
+	li $v0 4
+	la $a0 lastOp
+	syscall
+
+#minus 20 math using || register $t3
+	subi $t3, $t2, 20
+	
+#minus 20 ansewer displayed
+	li $v0 1
+	move $a0 $t3
+	syscall 
+
+
+#test case #1: 5 - 3 = 2 and 2 - 20 = -18
+#test case #2: 5 - 8 = -3 and -3 - 20 = -23
+#test case #3: 7 - 4 = 3 and 3 - 20 = -17
+
+    li $v0, 10 
+    syscall #end
+

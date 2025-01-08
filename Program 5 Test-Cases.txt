@@ -1,0 +1,24 @@
+-- program is finished running --
+
+
+
+ Now processing instruction 0x01095020
+	R-Type Instruction
+	The opcode value is: 0x00000000
+
+ Now processing instruction 0x1220002c
+	Conditional Jump
+	The opcode value is: 0x00000004
+
+ Now processing instruction 0x3c011001
+	Unsupported Instruction
+	The opcode value is: 0x0000000f
+
+ Now processing instruction 0x24020004
+	Unsupported Instruction
+	The opcode value is: 0x00000009
+
+ Now processing instruction 0x08100002
+	Unconditional Jump
+	The opcode value is: 0x00000002
+-- program is finished running --

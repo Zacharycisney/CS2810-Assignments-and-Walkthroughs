@@ -1,0 +1,79 @@
+#Zach Cisney
+#Date: 3/14/2023
+#Description: refresh on procedures
+
+.globl main, convertFar
+.data
+greeting: .asciiz "Lets get to it \n"
+prompt: .asciiz "Give a number to be converted from Farenhite to Celsius\n \n"
+ogTemp: .float 0.0
+const5: .float 5.0
+const9: .float 9.0
+const32: .float 32.0
+gClose: .asciiz "\n\nGet lost punk"
+
+
+.text
+
+main:
+
+#Psuedocode:
+#	greeting
+	li $v0, 4
+	la $a0, greeting
+	syscall
+
+#	prompt for float num
+	la $a0, prompt
+	syscall
+	
+#	capture the float
+	li $v0, 6
+	syscall
+	mov.s $f14, $f0
+
+
+	
+#	pass it to the procedure 
+	jal convertFar
+	
+#	print the return value
+	li $v0, 2
+	mov.s $f12, $f0
+	syscall
+
+
+end_main:
+	#close and exit
+	li $v0, 4
+	la $a0, gClose
+	syscall
+	
+	li $v0, 10
+	syscall
+	
+#Psuedocode:
+#
+#	float convert(float far)
+#		return (5.0 / 9.0) * (far - 32.0)
+#	} //end
+#
+convertFar:
+	
+	l.s $f16, const5 
+	l.s $f18, const9 
+	div.s $f16, $f16, $f18 #f16 = 5.0/9.0
+	
+	l.s $f18, const32
+	sub.s $f0, $f14, $f18 # far - 32
+	
+	#5/9 * far-32
+	mul.s $f0, $f0, $f16
+		
+end_convertFar:
+	jr $ra	
+
+
+#registers: 
+#	far: $f12
+#	results: $f0

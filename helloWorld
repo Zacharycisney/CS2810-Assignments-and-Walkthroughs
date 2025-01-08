@@ -1,0 +1,94 @@
+#Zach
+#3-2-2023
+#Drescription: create a procedure
+
+#list of procedures in this program
+.globl main, hello_world, hello_message
+
+
+
+.data #data segment - labels
+gClose: .asciiz "Get lost punk"
+hello: .asciiz "wassup from the procedure feature \n\n"
+message: .asciiz "I put hot sauce on my cereal just to feel something\n\n"
+prompt: .asciiz "Type a string: \n"
+text: .space 256 # text (save space for 255 characters plus the null character
+
+
+.text #sources code
+
+#Pseudocode:
+# 	call a procedure
+#	Helloworld()
+#	
+#
+	li $a1, 256 # set the size of the input beffer
+
+main:
+
+#	jal hello_world #jump and link: sets register $ra to next address
+
+	la $a0, hello #load parameter into argument
+#	jal hello_message
+
+#do it again, with a different parameter
+	la $a0, message
+#	jal hello_message
+
+	#print the prompt
+	li $v0, 4
+	la $a0, prompt
+	syscall
+	
+	#read the input
+	li $v0, 8 
+	la $a0, text #reads in a string
+	syscall
+	
+	la $a0, text #load parameter into argument
+	jal hello_message
+
+end_main:
+
+	#graceful and clean exit
+	li $v0, 4
+	la $a0, gClose
+	syscall
+	li $v0, 10
+	syscall #exit
+	
+#################################################################
+#Procedures: (usually outside of this file)
+#	Helloworld()
+#	print(Hellow message())
+#
+#	registers: none
+
+
+hello_world:
+	#print a string
+	li $v0, 4
+	la $a0, hello
+	syscall
+	
+	
+end_hello_world:
+	jr $ra #jump back to calling location
+	
+	
+#Procedure - helloMessage(string message)
+#	print message
+#	
+#	registers: 
+#		$a0 (string to print)
+#	returns: none
+hello_message:
+	#priunt a string
+	li $v0, 4
+	#la $a0, hello # this part isn't need it will already be set
+	syscall
+
+
+end_hello_message:
+	jr $ra # returns to calling loaction
+

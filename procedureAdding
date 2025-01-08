@@ -1,0 +1,92 @@
+#Zach C
+#3-2-2023
+#description: cerate a procedure with two parameters and a return value
+#pass two numbers and return the sum
+
+.globl main, add_two
+
+.data
+fGreeting: .asciiz "Welcome to the gulag \n"
+prompt: .asciiz "Two numbers will be added give use one: \n"
+itIs: .asciiz "\nThe sum is: "
+gClose: .asciiz "\nGet lost punk\n"
+
+
+.text
+
+#Pseudocode:
+#	set two intergers
+#	call to add integers
+#	capture return value
+#	print the sum	
+
+
+main:
+	li $v0, 4
+	la $a0, fGreeting
+	syscall
+	
+	#print the prompt 1
+	li $v0, 4
+	la $a0, prompt
+	syscall
+	
+	li $v0, 5 
+	move $t0, $v0
+	syscall
+	
+	#print the prompt 2
+	li $v0, 4
+	la $a0, prompt
+	syscall
+	
+	li $v0, 5 
+	move $t1, $v0 
+	syscall
+	
+	jal add_two
+
+	move $s0, $v0 #$t0 has total
+	
+	jal pass_sum
+
+end_main:
+
+	#graceful and clean exit
+	li $v0, 4
+	la $a0, gClose
+	syscall
+	li $v0, 10
+	syscall #exit
+	
+
+#Procedure: AddTwo(int num1, int num2)
+#	int total =  num1 + num2
+#	return total
+#
+#registers: 
+#	a0 = num1
+#	a1 = num2
+#
+#return:
+#	v0 = return/sum
+
+add_two:
+	#add and put in total
+	add $v0, $t0, $t1 
+
+		
+end_add_two:
+	jr $ra
+	
+pass_sum:
+	li $v0, 4
+	la $a0, itIs 
+	syscall
+
+	li $v0, 1
+	move $a0, $s0 
+	syscall
+
+end_pass_sum: 
+	jr $ra
